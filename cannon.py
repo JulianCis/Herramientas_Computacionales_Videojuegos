@@ -1,17 +1,3 @@
-"""Cannon, hitting targets with projectiles.
-
-Exercises
-
-1. Keep score by counting target hits.
-2. Vary the effect of gravity.
-3. Apply gravity to the targets.
-4. Change the speed of the ball.
-"""
-
-"""
-Es un juego donde el jugador debe golpear objetivos con proyectiles disparados desde un cañón.
-"""
-
 from random import randrange
 from turtle import *
 
@@ -21,6 +7,9 @@ from freegames import vector
 ball = vector(-200, -200)
 speed = vector(0, 0)
 targets = []
+target_speed = 5  # Velocidad de los objetivos
+gravity = 1  # Gravedad del proyectil
+max_targets = 5  # Máximo número de objetivos en pantalla
 
 def tap(x, y):
     """El cañón dispara un proyectil en la dirección del clic.
@@ -28,8 +17,8 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 200) / 25
-        speed.y = (y + 200) / 25
+        speed.x = (x + 200) / 5  # Ajusta la velocidad del proyectil en x
+        speed.y = (y + 200) / 5  # Ajusta la velocidad del proyectil en y
 
 
 def inside(xy):
@@ -57,34 +46,48 @@ def move():
        mueve los objetivos hacia la izquierda en la pantalla y aplica la gravedad al proyectil.
        Si un objetivo está lo suficientemente cerca del proyectil,
        se elimina de la lista de objetivos, lo que indica que ha sido golpeado."""
-    if randrange(40) == 0:
+    global targets
+
+    if len(targets) < max_targets and randrange(40) == 0:
         y = randrange(-150, 150)
         target = vector(200, y)
         targets.append(target)
 
+    new_targets = []
+
     for target in targets:
-        target.x -= 0.5
+        target.x -= target_speed
+
+        if inside(target):
+            new_targets.append(target)
+
+    targets = new_targets
 
         if not inside(target):
             target.x = 200
             target.y = randrange(-150, 150)
 
     if inside(ball):
-        speed.y -= 0.35
+        speed.y -= gravity  # Aplica la gravedad al proyectil
         ball.move(speed)
 
-    dupe = targets.copy()
-    targets.clear()
+    new_targets = []
 
-    for target in dupe:
+    for target in targets:
         if abs(target - ball) > 13:
-            targets.append(target)
+            new_targets.append(target)
+
+    targets = new_targets
 
     draw()
 
+    if not inside(ball):
+        ball.x = -200
+        ball.y = -200
+
     ontimer(move, 50)
 
-# Configuración inicial 
+# Configuración inicial
 setup(420, 420, 370, 0)
 hideturtle()
 up()
