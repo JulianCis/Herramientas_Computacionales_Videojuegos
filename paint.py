@@ -8,6 +8,10 @@ Exercises
 4. Complete triangle.
 5. Add width parameter.
 """
+"""
+Este código proporciona una interfaz básica para dibujar formas como líneas, cuadrados y círculos en una ventana gráfica.
+Seleccionas la forma y el color con las teclas y el primer click es el punto inicial y el segundo el punto final
+"""
 
 from turtle import *
 
@@ -15,7 +19,7 @@ from freegames import vector
 
 
 def line(start, end):
-    """Draw line from start to end."""
+    """Dibuja la línea de inicio a fin"""
     up()
     goto(start.x, start.y)
     down()
@@ -23,7 +27,7 @@ def line(start, end):
 
 
 def square(start, end):
-    """Draw square from start to end."""
+    """Dibuja un cuadrado de inicio a fin, hacia arriba"""
     up()
     goto(start.x, start.y)
     down()
@@ -37,26 +41,28 @@ def square(start, end):
 
 
 def circle(start, end):
-    """Draw circle from start to end."""
+    """Dibuja un círculo de inicio a fin. Por implementar."""
     pass  # TODO
 
 
 def rectangle(start, end):
-    """Draw rectangle from start to end."""
+    """Dibuja un rectángulo de inicio a fin. Por implementar."""
     pass  # TODO
 
 
 def triangle(start, end):
-    """Draw triangle from start to end."""
+    """Dibuja un triángulo de inicio a fin. Por implementar."""
     pass  # TODO
 
 
 def tap(x, y):
-    """Store starting point or draw shape."""
+    """Guarda el punto inicial o dibujar la figura"""
     start = state['start']
 
+# Guardar el punto inicial
     if start is None:
         state['start'] = vector(x, y)
+# Dibujar la figura
     else:
         shape = state['shape']
         end = vector(x, y)
@@ -65,10 +71,10 @@ def tap(x, y):
 
 
 def store(key, value):
-    """Store value in state at key."""
+    """Guardar el valor en estado al código."""
     state[key] = value
 
-
+# Se define estado inicial y se espera para recibir indicaciones por teclado
 state = {'start': None, 'shape': line}
 setup(420, 420, 370, 0)
 onscreenclick(tap)
