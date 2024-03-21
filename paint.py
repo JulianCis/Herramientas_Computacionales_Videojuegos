@@ -14,9 +14,11 @@ Seleccionas la forma y el color con las teclas y el primer click es el punto ini
 """
 
 from turtle import *
+import turtle
 
 from freegames import vector
 
+import math
 
 def line(start, end):
     """Dibuja la línea de inicio a fin"""
@@ -41,8 +43,18 @@ def square(start, end):
 
 
 def circle(start, end):
-    """Dibuja un círculo de inicio a fin. Por implementar."""
-    pass  # TODO
+    """Dibuja un círculo de inicio a fin."""
+    up()
+    goto(start.x, start.y)
+    down()
+
+    # Calcula la distancia entre los puntos
+    radius = math.sqrt((end.x - start.x)**2 + (end.y - start.y)**2)
+
+    # Dibujar
+    begin_fill()
+    turtle.circle(radius)
+    end_fill()
 
 
 def rectangle(start, end):
@@ -56,13 +68,13 @@ def triangle(start, end):
 
 
 def tap(x, y):
-    """Guarda el punto inicial o dibujar la figura"""
+    """Guarda el punto inicial o dibuja la figura"""
     start = state['start']
 
-# Guardar el punto inicial
+    # Guardar el punto inicial
     if start is None:
         state['start'] = vector(x, y)
-# Dibujar la figura
+    # Dibujar la figura
     else:
         shape = state['shape']
         end = vector(x, y)
@@ -85,7 +97,7 @@ onkey(lambda: color('white'), 'W')
 onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
-onkey(lambda: color('gray', 'Y'))
+onkey(lambda: color('gray'), 'Y')
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
 onkey(lambda: store('shape', circle), 'c')
