@@ -137,16 +137,31 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
-    """Realiza el movimiento de los fantasma y actualiza sus vectores"""
+    """Realiza el movimiento de los fantasmas"""
     for point, course in ghosts:
+        diff = pacman - point  # Calcula la diferencia vectorial entre el fantasma y Pacman
+        if abs(diff.x) > abs(diff.y):
+            if diff.x > 0:
+                course.x = 20
+            else:
+                course.x = -20
+            course.y = 0
+        else:
+            if diff.y > 0:
+                course.y = 20
+            else:
+                course.y = -20
+            course.x = 0
+
         if valid(point + course):
             point.move(course)
         else:
+            # Si no pueden moverse en la dirección elegida, eligen una dirección aleatoria
             options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
+                vector(20, 0),
+                vector(-20, 0),
+                vector(0, 20),
+                vector(0, -20),
             ]
             plan = choice(options)
             course.x = plan.x
@@ -163,6 +178,7 @@ def move():
             return
 
     ontimer(move, 50)
+
 
 
 def change(x, y):
