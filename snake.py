@@ -52,6 +52,10 @@ def move():
     else:
         snake.pop(0)
 
+    if randrange(25) == 0:
+        food.x = randrange(-15, 15) * 10
+        food.y = randrange(-15, 15) * 10
+
     clear()
 
     """Indica el color del cuerpo de la serpiente"""
