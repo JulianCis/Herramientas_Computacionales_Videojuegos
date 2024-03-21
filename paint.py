@@ -58,13 +58,36 @@ def circle(start, end):
 
 
 def rectangle(start, end):
-    """Dibuja un rectángulo de inicio a fin. Por implementar."""
-    pass  # TODO
+    """Dibuja un rectángulo de inicio a fin."""
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+
+    width = end.x - start.x
+    height = end.y - start.y
+
+    for _ in range(2):
+        forward(width)
+        left(90)
+        forward(height)
+        left(90)
+
+    end_fill()
 
 
 def triangle(start, end):
-    """Dibuja un triángulo de inicio a fin. Por implementar."""
-    pass  # TODO
+    """Dibuja un triángulo de inicio a fin."""
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+
+    for count in range(3):
+        forward(end.x - start.x)
+        left(120)
+
+    end_fill()
 
 
 def tap(x, y):
