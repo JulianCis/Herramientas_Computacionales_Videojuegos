@@ -23,7 +23,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
-
+taps = 0
 
 def square(x, y):
     """Dibuja un cuadrado blanco con un borde negro en una posición específica (x, y)."""
@@ -50,6 +50,11 @@ def xy(count):
 
 def tap(x, y):
     """Actualiza el estado del juego y revela fichas cuando el jugador hace clic en una posición.."""
+
+    global taps
+    taps += 1
+    print("Numero de taps: ", taps)
+
     spot = index(x, y)
     mark = state['mark']
 
@@ -78,9 +83,11 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        x_offset = x + 25
+        y_offset = y + 7
+        goto(x_offset, y_offset)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(tiles[mark], align="center", font=('Arial', 30, 'normal'))
 
     update()
     ontimer(draw, 100)
