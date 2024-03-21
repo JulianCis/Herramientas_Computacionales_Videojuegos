@@ -10,10 +10,17 @@ Exercises
 
 """Este código es una implementación simple del juego clásico Snake donde cada vez que te acercas a un bloque de color, la serpiente aumentará su tamaño y el bloque de color cambiará de posición"""
 
-from random import randrange
+from random import randrange, choice
 from turtle import *
 
 from freegames import square, vector
+
+colores = ['blue', 'green', 'yellow', 'orange', 'purple']
+
+color_serpiente = choice(colores)
+colores.remove(color_serpiente)
+color_comida = choice(colores)
+
 
 food = vector(0, 0)
 snake = [vector(10, 0)]
@@ -60,10 +67,10 @@ def move():
 
     """Indica el color del cuerpo de la serpiente"""
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, color_serpiente)
 
     """Indica el color y la posición de la comida"""
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, color_comida)
     update()
     ontimer(move, 100)
 
