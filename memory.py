@@ -90,6 +90,9 @@ def draw():
         goto(x_offset, y_offset)
         color(choice(colors))
         write(tiles[mark], align="center", font=('Arial', 30, 'normal'))
+        
+    if all(not tile_hidden for tile_hidden in hide):
+        print("¡Todos los cuadros se han destapado!")
 
     update()
     ontimer(draw, 100)
