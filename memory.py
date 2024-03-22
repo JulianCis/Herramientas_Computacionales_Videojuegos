@@ -1,5 +1,4 @@
 """Memory, puzzle game of number pairs.
-
 Exercises:
 
 1. Count and print how many taps occur.
@@ -18,6 +17,9 @@ from turtle import *
 from freegames import path
 
 """Define variables para cargar una imagen, generar las fichas del juego, mantener el estado del juego, y controlar la visibilidad de las fichas."""
+
+colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink', 'cyan']
+
 
 car = path('car.gif')
 tiles = list(range(32)) * 2
@@ -86,7 +88,7 @@ def draw():
         x_offset = x + 25
         y_offset = y + 7
         goto(x_offset, y_offset)
-        color('black')
+        color(choice(colors))
         write(tiles[mark], align="center", font=('Arial', 30, 'normal'))
 
     update()
