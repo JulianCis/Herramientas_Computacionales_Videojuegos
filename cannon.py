@@ -62,10 +62,6 @@ def move():
             target.x = 200
             target.y = randrange(-150, 150)
 
-    if not inside(target):
-        target.x = 200
-        target.y = randrange(-150, 150)
-
     if inside(ball):
         speed.y -= gravity  # Aplica la gravedad al proyectil
         ball.move(speed)
